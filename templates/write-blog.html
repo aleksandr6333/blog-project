@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+<div class="text-center">
+    <h1>New blog</h1>
+</div>
+
+<form method="POST">  
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name="title" placeholder="Enter a title">
+    </div>
+    
+    <div class="form-group">
+      <label for="body">Text</label>
+      <textarea type="text" class="form-control ckeditor" id="body" name="body" placeholder="Enter yor text">Enter text</textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

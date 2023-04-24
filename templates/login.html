@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+<div class="text-center">
+    <h1>User Login</h1>
+</div>
+
+<form method="POST">  
+    <div class="form-group">
+      <label for="username">User Name</label>
+      <input type="text" class="form-control" id="username" name="username" placeholder="Enter your user name">
+    </div>
+    
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Enter yor password">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% endblock %}
