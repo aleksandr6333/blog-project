@@ -132,13 +132,19 @@ def edit_blog(id):
         return render_template("edit-blog.html", blog_form=blog_form)
     
 
-@app.route('/delete-blog/<int:id>', methods=['POST'])
+@app.route('/delete-blog/<int:id>')
 def delete_blog(id):
-    return 'Success delete'
+    cursor = mysql.connection.cursor()
+    cursor.execute("DELETE FROM blog WHERE blog_id = {}".format(id))
+    mysql.connection.commit()
+    flash("Blog delete", "success")
+    return redirect('/my-blogs')
 
 @app.route('/logout/')
 def logout():
-    return render_template('logout.html')
+    session.clear()
+    flash("You logout", "info")
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
