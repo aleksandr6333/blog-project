@@ -1,0 +1,4 @@
+mysql_host: 'localhost'
+mysql_user: 'evilsuperuser2_app2'
+mysql_password: 'Stargate16062012'
+mysql_db: 'evilsuperuser2_blog_db'
