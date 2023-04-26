@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, session, redirect, request
+from flask import Flask, render_template, flash, session, redirect, request, url_for
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
 import yaml
@@ -43,22 +43,65 @@ def blogs(id):
         return render_template('blogs.html', blog=blog)
     return 'Blog not found'
 
+#@app.route('/register/', methods=['GET', 'POST'])
+#def register():
+#    if request.method == 'POST':
+#        user_details = request.form
+#        if user_details['password'] != user_details['confirmPassword']:
+#            flash('Password do not match. Try again', 'danger')
+#            return render_template('register.html')
+#        else:
+#            cursor = mysql.connection.cursor()
+#            cursor.execute("INSERT INTO user(first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (user_details['firstname'], user_details['lastname'], user_details['username'], user_details['email'], generate_password_hash(user_details['password'])))
+#            mysql.connection.commit()
+#            cursor.close()
+#            flash('Register complite. Please login', 'success')
+#            return render_template('login.html')
+#        
+#    return render_template('register.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         user_details = request.form
-        if user_details['password'] != user_details['confirmPassword']:
+        if user_details['password'] == user_details['confirmPassword']:
+            cursor = mysql.connection.cursor()
+            cursor.execute("INSERT INTO user(first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (user_details['firstname'], user_details['lastname'], user_details['username'], user_details['email'], generate_password_hash(user_details['password'])))
+            mysql.connection.commit()
+            cursor.close()
+            flash('Register complite. Please login', 'success')
+            return redirect(url_for('login'))
+        else:
             flash('Password do not match. Try again', 'danger')
             return render_template('register.html')
-        cursor = mysql.connection.cursor()
-        cursor.execute("INSERT INTO user(first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", 
-                       (user_details['firstname'], user_details['lastname'], user_details['username'], user_details['email'], generate_password_hash(user_details['password'])))
-        mysql.connection.commit()
-        cursor.close()
-        flash('Register complite. Please login', 'success')
-        return render_template('/login.html')
-        #16:49
     return render_template('register.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
